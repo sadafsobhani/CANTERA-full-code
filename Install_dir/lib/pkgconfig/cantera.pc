@@ -1,0 +1,12 @@
+prefix=/home/ssobhani/Cantera/cantera/Install_dir/
+exec_prefix=${prefix}/bin
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: Cantera
+Description: Cantera library
+URL: http://www.cantera.org
+Version: 2.3.0a2
+
+Libs: -L${libdir}  -lcantera -lblas -llapack -lpthread
+Cflags: -pthread -I${includedir} 

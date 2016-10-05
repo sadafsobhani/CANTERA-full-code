@@ -1,0 +1,11 @@
+env = Environment()
+
+env.Append(CCFLAGS=['-g', '-Wall'],
+           CPPPATH=['/home/ssobhani/Cantera/cantera/Install_dir/include'],
+           LIBS=['cantera', 'blas', 'lapack'],
+           LIBPATH=['/home/ssobhani/Cantera/cantera/Install_dir/lib'],
+           LINKFLAGS=['-g', '-pthread'],
+           FRAMEWORKS=[])
+
+program = env.Program('kinetics1', 'kinetics1.cpp')
+Default(program)

@@ -1,0 +1,10 @@
+#!/share/apps/python/2.7.8/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'Cantera==2.3.0a2','console_scripts','ck2cti'
+__requires__ = 'Cantera==2.3.0a2'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('Cantera==2.3.0a2', 'console_scripts', 'ck2cti')()
+    )

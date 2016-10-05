@@ -13,7 +13,7 @@ namespace Cantera
 {
 
 OneDim::OneDim()
-    : m_tmin(1.0e-16), m_tmax(10.0), m_tfactor(0.5),
+    :dosolid(0),  m_tmin(1.0e-16), m_tmax(10.0), m_tfactor(0.5),
       m_rdt(0.0), m_jac_ok(false),
       m_bw(0), m_size(0),
       m_init(false), m_pts(0), m_solve_time(0.0),
@@ -24,6 +24,7 @@ OneDim::OneDim()
 }
 
 OneDim::OneDim(vector<Domain1D*> domains) :
+    dosolid(0),
     m_tmin(1.0e-16), m_tmax(10.0), m_tfactor(0.5),
     m_rdt(0.0), m_jac_ok(false),
     m_bw(0), m_size(0),
@@ -188,6 +189,7 @@ void OneDim::resize()
 int OneDim::solve(doublereal* x, doublereal* xnew, int loglevel)
 {
     if (!m_jac_ok) {
+        dosolid = 1; //solid phase must be solved before next gas phase iteration
         eval(npos, x, xnew, 0.0, 0);
         m_jac->eval(x, xnew, 0.0);
         m_jac->updateTransient(m_rdt, m_mask.data());
@@ -269,7 +271,8 @@ void OneDim::initTimeInteg(doublereal dt, doublereal* x)
         m_jac->updateTransient(m_rdt, m_mask.data());
     }
 
-    // iterate over all domains, preparing each one to begin time stepping
+    // iterate over all domains, preparing each one to begin
+    // time stepping
     Domain1D* d = left();
     while (d) {
         d->initTimeInteg(dt, x);
@@ -313,7 +316,8 @@ doublereal OneDim::timeStep(int nsteps, doublereal dt, doublereal* x,
 
     int n = 0;
     while (n < nsteps) {
-        if (loglevel > 0) {
+        dosolid = 1; //solid phase must be solved before next gas phase iteration
+	if (loglevel > 0) {
             doublereal ss = ssnorm(x, r);
             writelog(" {:>4d}  {:10.4g}  {:10.4g}", n, dt, log10(ss));
         }

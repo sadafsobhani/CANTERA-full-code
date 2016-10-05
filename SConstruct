@@ -261,6 +261,12 @@ elif env['CC'] == 'cl': # Visual Studio
     defaults.debugLinkFlags = '/DEBUG'
     defaults.warningFlags = '/W3'
 
+elif 'mpicc' in env.subst('$CC'):
+    defaults.ccFlags = '-diag-disable 1478'
+    defaults.cxxFlags = '-std=c++11'
+    defaults.warningFlags = '-Wcheck'
+
+
 elif 'icc' in env.subst('$CC'):
     defaults.cxxFlags = '-std=c++0x'
     defaults.ccFlags = '-vec-report0 -diag-disable 1478'

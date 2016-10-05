@@ -1,0 +1,41 @@
+#!/bin/sh
+
+if [ -z $LD_LIBRARY_PATH ]; then
+    LD_LIBRARY_PATH=/home/ssobhani/Cantera/cantera/Install_dir/lib
+else
+    LD_LIBRARY_PATH=/home/ssobhani/Cantera/cantera/Install_dir/lib:$LD_LIBRARY_PATH
+fi
+export LD_LIBRARY_PATH
+
+PYTHON_CMD=/share/apps/python/2.7.8/bin/python
+export PYTHON_CMD
+
+PATH=/home/ssobhani/Cantera/cantera/Install_dir/bin:$PATH
+export PATH
+
+if [ "/share/apps/python/2.7.8/bin/python" != `which python` ]; then
+   alias ctpython=/share/apps/python/2.7.8/bin/python
+fi
+
+if [ "default" = "y" ]; then
+    if [ -z $MATLAB_PATH ]; then
+        MATLABPATH=/home/ssobhani/Cantera/cantera/Install_dir/lib/cantera/matlab/toolbox:/home/ssobhani/Cantera/cantera/Install_dir/lib/cantera/matlab/toolbox/1D
+    else
+        MATLABPATH=$MATLABPATH:/home/ssobhani/Cantera/cantera/Install_dir/lib/cantera/matlab/toolbox:/home/ssobhani/Cantera/cantera/Install_dir/lib/cantera/matlab/toolbox/1D
+    fi
+    export MATLABPATH
+fi
+
+if [ "/home/ssobhani/Cantera/cantera/Install_dir/lib/python2.7/site-packages" != "" ]; then
+    if [ -z $PYTHONPATH ]; then
+        PYTHONPATH=/home/ssobhani/Cantera/cantera/Install_dir/lib/python2.7/site-packages
+    else
+        PYTHONPATH=/home/ssobhani/Cantera/cantera/Install_dir/lib/python2.7/site-packages:$PYTHONPATH
+    fi
+fi
+
+if [ "" != "" ]; then
+    PYTHONPATH=:$PYTHONPATH
+fi
+
+export PYTHONPATH
