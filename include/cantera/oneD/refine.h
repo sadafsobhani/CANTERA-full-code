@@ -47,6 +47,10 @@ public:
         m_gridmin = gridmin;
     }
 
+    void setExtraVar(doublereal * x) {
+        m_doevar = true; m_evar = x;
+    }
+
     //! Returns the the minimum allowable spacing between adjacent
     //! grid points [m].
     double gridMin() const {
@@ -91,6 +95,8 @@ protected:
     size_t m_nv, m_npmax;
     doublereal m_thresh;
     doublereal m_gridmin; //!< minimum grid spacing [m]
+    bool m_doevar;
+    doublereal* m_evar;
 };
 
 }
